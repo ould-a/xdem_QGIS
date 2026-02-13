@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.core import (QgsProcessingAlgorithm,
@@ -9,11 +8,9 @@ from qgis.core import (QgsProcessingAlgorithm,
                        QgsProcessingParameterEnum,
                        QgsProcessingParameterRasterDestination,
                        QgsProcessingParameterDefinition,)
-from .xdem_config import (PLUGINDIR,
-                         VENVNAME,
-                         VENVFOLDER,
-                         SUBPRCSFOLD,
+from .xdem_config import (SUBPRCSFOLD,
                          XDEMPY)
+
 
 class Slope(QgsProcessingAlgorithm):
 
@@ -44,7 +41,7 @@ class Slope(QgsProcessingAlgorithm):
 
     def processAlgorithm(self, parameters, context, feedback):
         
-        script = f"{SCRIPT_PATH}sub_slope.py"
+        script = f"{SUBPRCSFOLD}sub_slope.py"
         
         dem_layer = self.parameterAsRasterLayer(
             parameters,
@@ -62,19 +59,7 @@ class Slope(QgsProcessingAlgorithm):
             "METHOD", 
             context)
 
-        #subprocess.run([VENV, script, dem_path, output, method], check=True)
-
-        def slope (in_path, out_path, method,):
-
-            dem = xdem.DEM(in_path)
-
-            slope = dem.slope(surface_fit = method, degrees = True)
-
-            slope.save(out_path)
-
-            return out_path
-        
-        slope(dem_path, output, method)
+        subprocess.run([XDEMPY, script, dem_path, output, method], check=True)
 
         layer = QgsRasterLayer(output, 'slope')
         QgsProject.instance().addMapLayer(layer)

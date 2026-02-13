@@ -1,11 +1,9 @@
 import os
 
-
 PLUGINDIR = os.path.dirname(__file__)
 VENVNAME = "xdemvenv"
 VENVFOLDER = os.path.join(PLUGINDIR, VENVNAME)
 SUBPRCSFOLD = os.path.join(PLUGINDIR, "subprocess")
-
 
 def xdempyexe():
 

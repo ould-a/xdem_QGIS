@@ -1,7 +1,6 @@
 from qgis.core import QgsProcessingProvider
 
 from .terrain_attributes import (Slope,)
-from .coreg import (NuutKaab,)
 
 
 class XDemProvider(QgsProcessingProvider):
@@ -14,7 +13,6 @@ class XDemProvider(QgsProcessingProvider):
 
     def loadAlgorithms(self):
         self.addAlgorithm(Slope())
-        self.addAlgorithm(NuutKaab())
 
     def id(self):
         return 'XDEM'
